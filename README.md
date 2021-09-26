@@ -1,0 +1,1 @@
+# MIME Type Upload Example
