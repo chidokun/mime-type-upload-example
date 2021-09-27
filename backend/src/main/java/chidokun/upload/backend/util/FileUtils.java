@@ -5,6 +5,7 @@ import org.apache.tika.detect.Detector;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
+import org.apache.tika.mime.MimeTypes;
 import org.apache.tika.parser.AutoDetectParser;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +27,7 @@ public class FileUtils {
             MediaType mediaType = detector.detect(stream, metadata);
             return mediaType.toString();
         } catch (IOException e) {
-            return "application/octet-stream";
+            return MimeTypes.OCTET_STREAM;
         }
     }
 }

@@ -22,8 +22,8 @@ public class UploadController {
     @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Response> upload(@RequestPart MultipartFile file) {
         String mimeType = FileUtils.getRealMimeType(file);
-        if (!config.getAllowTypes().contains(mimeType))        {
-            throw new RuntimeException("File type " + mimeType + " doesn't allow." );
+        if (!config.getAllowTypes().contains(mimeType)) {
+            throw new RuntimeException("File type " + mimeType + " wasn't allowed." );
         }
 
         // my logic
@@ -33,19 +33,13 @@ public class UploadController {
 
     @PostMapping(path = "/check-file-type", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Response> checkFileType(@RequestPart MultipartFile file) {
-        log.info("File uploaded: " + file.getOriginalFilename());
-        log.info("Mime Type: " + file.getContentType());
-
-        return ResponseEntity.ok(new Response(file.getContentType()));
+        String mimeType = file.getContentType();
+        return ResponseEntity.ok(new Response(mimeType));
     }
 
     @PostMapping(path = "/check-real-type", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Response> checkRealType(@RequestPart MultipartFile file) {
-        log.info("File uploaded: " + file.getOriginalFilename());
-        log.info("Mime Type: " + file.getContentType());
-
-        String realMimeType = FileUtils.getRealMimeType(file);
-        log.info("Real Mime Type: " + realMimeType);
-        return ResponseEntity.ok(new Response(realMimeType));
+        String mimeType = FileUtils.getRealMimeType(file);
+        return ResponseEntity.ok(new Response(mimeType));
     }
 }
